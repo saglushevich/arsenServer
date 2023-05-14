@@ -138,6 +138,17 @@ router.put('/updateOrder/:_id', async (req, res) => {
     }
 })
 
+router.put('/updateProduct/:_id', async (req, res) => {
+    try {
+        const {_id} = req.params;
+        const {changes} = req.body;
+        const product = await Product.findByIdAndUpdate({_id}, changes, {returnDocument: "after"})
+        await product.save();
+    } catch (error) {
+        res.send({message: "Server error"})
+    }
+})
+
 router.delete('/deleteOrder/:id', async (req, res) => {
     const {id} = req.params;
     try {
